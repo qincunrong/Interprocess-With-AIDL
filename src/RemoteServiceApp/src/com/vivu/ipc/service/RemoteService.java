@@ -1,4 +1,3 @@
-
 package com.vivu.ipc.service;
 
 import android.app.Service;
@@ -13,21 +12,23 @@ import com.vivu.ipc.model.OperatorRequest;
 import com.vivu.ipc.model.OperatorResponse;
 
 public class RemoteService extends Service {
-    private IRemoteService.Stub stub = new Stub() {
+	private IRemoteService.Stub stub = new Stub() {
 
-        @Override
-        public void calculate(OperatorRequest request, ICalculate callback) throws RemoteException {
-            OperatorResponse response = new OperatorResponse();
-            response.setResult(request.getA() + request.getB());
-            response.setCalculatingTime(System.currentTimeMillis() - request.getTimeRequest());
-            callback.calculate(response);
-        }
+		@Override
+		public void calculate(OperatorRequest request, ICalculate callback)
+				throws RemoteException {
+			OperatorResponse response = new OperatorResponse();
+			response.setResult(request.getA() + request.getB());
+			response.setCalculatingTime(System.currentTimeMillis()
+					- request.getTimeRequest());
+			callback.calculate(response);
+		}
 
-    };
+	};
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        return stub;
-    }
+	@Override
+	public IBinder onBind(Intent intent) {
+		return stub;
+	}
 
 }

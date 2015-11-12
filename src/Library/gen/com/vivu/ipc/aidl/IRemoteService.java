@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: E:\\Work\\vivu\\Interprocess with AIDL\\Interprocess-With-AIDL\\src\\Library\\src\\com\\vivu\\ipc\\aidl\\IRemoteService.aidl
+ * Original file: D:\\Work\\Interprocess with AIDL\\Interprocess-With-AIDL\\src\\Library\\src\\com\\vivu\\ipc\\aidl\\IRemoteService.aidl
  */
 package com.vivu.ipc.aidl;
 public interface IRemoteService extends android.os.IInterface
@@ -55,7 +55,6 @@ _arg0 = null;
 com.vivu.ipc.aidl.ICalculate _arg1;
 _arg1 = com.vivu.ipc.aidl.ICalculate.Stub.asInterface(data.readStrongBinder());
 this.calculate(_arg0, _arg1);
-reply.writeNoException();
 return true;
 }
 }
@@ -79,7 +78,6 @@ return DESCRIPTOR;
 @Override public void calculate(com.vivu.ipc.model.OperatorRequest request, com.vivu.ipc.aidl.ICalculate callback) throws android.os.RemoteException
 {
 android.os.Parcel _data = android.os.Parcel.obtain();
-android.os.Parcel _reply = android.os.Parcel.obtain();
 try {
 _data.writeInterfaceToken(DESCRIPTOR);
 if ((request!=null)) {
@@ -90,11 +88,9 @@ else {
 _data.writeInt(0);
 }
 _data.writeStrongBinder((((callback!=null))?(callback.asBinder()):(null)));
-mRemote.transact(Stub.TRANSACTION_calculate, _data, _reply, 0);
-_reply.readException();
+mRemote.transact(Stub.TRANSACTION_calculate, _data, null, android.os.IBinder.FLAG_ONEWAY);
 }
 finally {
-_reply.recycle();
 _data.recycle();
 }
 }
