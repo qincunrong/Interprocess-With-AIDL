@@ -5,5 +5,5 @@ import com.vivu.ipc.model.OperatorRequest;
 import com.vivu.ipc.aidl.ICalculate;
 
 oneway interface IRemoteService {
-	void calculate(in OperatorRequest request,ICalculate callback);
+	void calculate(in OperatorRequest request,in ICalculate callback);
 }
