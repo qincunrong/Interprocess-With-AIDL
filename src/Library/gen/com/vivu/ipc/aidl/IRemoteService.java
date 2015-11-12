@@ -1,6 +1,6 @@
 /*
  * This file is auto-generated.  DO NOT MODIFY.
- * Original file: E:\\Work\\vivu\\Interprocess with AIDL\\RemoteService\\Library\\src\\com\\vivu\\ipc\\aidl\\IRemoteService.aidl
+ * Original file: E:\\Work\\vivu\\Interprocess with AIDL\\Interprocess-With-AIDL\\src\\Library\\src\\com\\vivu\\ipc\\aidl\\IRemoteService.aidl
  */
 package com.vivu.ipc.aidl;
 public interface IRemoteService extends android.os.IInterface
