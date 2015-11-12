@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.os.RemoteException;
 
+import com.vivu.ipc.aidl.ICalculate;
 import com.vivu.ipc.aidl.IRemoteService;
 import com.vivu.ipc.aidl.IRemoteService.Stub;
 import com.vivu.ipc.model.OperatorRequest;
@@ -15,12 +16,13 @@ public class RemoteService extends Service {
     private IRemoteService.Stub stub = new Stub() {
 
         @Override
-        public OperatorResponse calculate(OperatorRequest request) throws RemoteException {
+        public void calculate(OperatorRequest request, ICalculate callback) throws RemoteException {
             OperatorResponse response = new OperatorResponse();
             response.setResult(request.getA() + request.getB());
             response.setCalculatingTime(System.currentTimeMillis() - request.getTimeRequest());
-            return response;
+            callback.calculate(response);
         }
+
     };
 
     @Override

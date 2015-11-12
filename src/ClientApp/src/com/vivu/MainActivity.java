@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Process;
 import android.os.RemoteException;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
+import com.vivu.ipc.aidl.ICalculate;
+import com.vivu.ipc.aidl.ICalculate.Stub;
 import com.vivu.ipc.aidl.IRemoteService;
 import com.vivu.ipc.model.OperatorRequest;
 import com.vivu.ipc.model.OperatorResponse;
@@ -31,6 +34,17 @@ public class MainActivity extends FragmentActivity {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             calculator = IRemoteService.Stub.asInterface(service);
+        }
+    };
+
+    private ICalculate.Stub callback = new Stub() {
+
+        @Override
+        public void calculate(OperatorResponse response) throws RemoteException {
+            Log.d("TAG", "Server's pId=" + response.getpId());
+            Log.d("TAG",
+                    String.format("Get result= %d after %ds", response.getResult(), (int)response.getCalculatingTime()));
+            Log.d("TAG", "Current process's pId=" + Process.myPid());
         }
     };
 
@@ -58,9 +72,7 @@ public class MainActivity extends FragmentActivity {
                 request.setB(second);
                 Log.d("TAG", "Client's pId=" + request.getpId());
                 try {
-                    OperatorResponse response = calculator.calculate(request);
-                    Log.d("TAG", "Server's pId=" + response.getpId());
-                    Log.d("TAG", "Result=" + response.getResult());
+                    calculator.calculate(request, callback);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 } catch (Exception e) {
@@ -76,6 +88,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        unbindService(connection);
     }
 
 }

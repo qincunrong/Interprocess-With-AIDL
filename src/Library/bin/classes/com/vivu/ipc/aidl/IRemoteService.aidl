@@ -2,7 +2,8 @@ package com.vivu.ipc.aidl;
 
 import com.vivu.ipc.model.OperatorResponse;
 import com.vivu.ipc.model.OperatorRequest;
+import com.vivu.ipc.aidl.ICalculate;
 
 interface IRemoteService {
-	OperatorResponse calculate(in OperatorRequest request);
+	void calculate(in OperatorRequest request, ICalculate callback);
 }

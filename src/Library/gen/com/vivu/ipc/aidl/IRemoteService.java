@@ -52,15 +52,10 @@ _arg0 = com.vivu.ipc.model.OperatorRequest.CREATOR.createFromParcel(data);
 else {
 _arg0 = null;
 }
-com.vivu.ipc.model.OperatorResponse _result = this.calculate(_arg0);
+com.vivu.ipc.aidl.ICalculate _arg1;
+_arg1 = com.vivu.ipc.aidl.ICalculate.Stub.asInterface(data.readStrongBinder());
+this.calculate(_arg0, _arg1);
 reply.writeNoException();
-if ((_result!=null)) {
-reply.writeInt(1);
-_result.writeToParcel(reply, android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE);
-}
-else {
-reply.writeInt(0);
-}
 return true;
 }
 }
@@ -81,11 +76,10 @@ public java.lang.String getInterfaceDescriptor()
 {
 return DESCRIPTOR;
 }
-@Override public com.vivu.ipc.model.OperatorResponse calculate(com.vivu.ipc.model.OperatorRequest request) throws android.os.RemoteException
+@Override public void calculate(com.vivu.ipc.model.OperatorRequest request, com.vivu.ipc.aidl.ICalculate callback) throws android.os.RemoteException
 {
 android.os.Parcel _data = android.os.Parcel.obtain();
 android.os.Parcel _reply = android.os.Parcel.obtain();
-com.vivu.ipc.model.OperatorResponse _result;
 try {
 _data.writeInterfaceToken(DESCRIPTOR);
 if ((request!=null)) {
@@ -95,23 +89,17 @@ request.writeToParcel(_data, 0);
 else {
 _data.writeInt(0);
 }
+_data.writeStrongBinder((((callback!=null))?(callback.asBinder()):(null)));
 mRemote.transact(Stub.TRANSACTION_calculate, _data, _reply, 0);
 _reply.readException();
-if ((0!=_reply.readInt())) {
-_result = com.vivu.ipc.model.OperatorResponse.CREATOR.createFromParcel(_reply);
-}
-else {
-_result = null;
-}
 }
 finally {
 _reply.recycle();
 _data.recycle();
 }
-return _result;
 }
 }
 static final int TRANSACTION_calculate = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
 }
-public com.vivu.ipc.model.OperatorResponse calculate(com.vivu.ipc.model.OperatorRequest request) throws android.os.RemoteException;
+public void calculate(com.vivu.ipc.model.OperatorRequest request, com.vivu.ipc.aidl.ICalculate callback) throws android.os.RemoteException;
 }

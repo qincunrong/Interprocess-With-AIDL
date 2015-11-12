@@ -17,6 +17,10 @@ public class OperatorResponse implements Parcelable {
     }
 
     public OperatorResponse(Parcel parcel) {
+        readFromParcel(parcel);
+    }
+
+    public void readFromParcel(Parcel parcel) {
         pId = parcel.readInt();
         result = parcel.readInt();
         calculatingTime = parcel.readLong();
