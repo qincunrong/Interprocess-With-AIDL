@@ -45,6 +45,7 @@ public class MainActivity extends FragmentActivity {
 							response.getResult(),
 							(int) response.getCalculatingTime()));
 			Log.d("TAG", "Current process's pId=" + Process.myPid());
+			Log.d("TAG", "Thread=" + Thread.currentThread().getId());
 		}
 	};
 
@@ -83,6 +84,8 @@ public class MainActivity extends FragmentActivity {
 
 		Intent intent = new Intent("com.vivu.ipc.service.RemoteService");
 		bindService(intent, connection, Context.BIND_AUTO_CREATE);
+
+		Log.d("TAG", "MainThread=" + Thread.currentThread().getId());
 	}
 
 	@Override

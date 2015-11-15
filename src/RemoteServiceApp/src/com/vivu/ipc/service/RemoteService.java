@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.util.Log;
 
 import com.vivu.ipc.aidl.ICalculate;
 import com.vivu.ipc.aidl.IRemoteService;
@@ -22,6 +23,7 @@ public class RemoteService extends Service {
 			response.setCalculatingTime(System.currentTimeMillis()
 					- request.getTimeRequest());
 			callback.calculate(response);
+			Log.d("TAG", "Server thread=" + Thread.currentThread().getId());
 		}
 
 	};
